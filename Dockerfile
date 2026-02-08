@@ -1,25 +1,2 @@
-name: Build and Push Docker Image
-
-on:
-  push:
-    branches: [ "main" ]
-
-jobs:
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: sharmaake/my-nginx-app:latest
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
